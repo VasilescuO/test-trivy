@@ -1,3 +1,2 @@
-# custom-runner
+# Test trivy action
 
-Test commit
