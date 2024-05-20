@@ -1,0 +1,10 @@
+{
+  "database": {
+    "username": "admin",
+    "password": "admin123"
+  },
+  "apiKeys": {
+    "serviceA": "1234567890abcdef",
+    "serviceB": "abcdef1234567890"
+  }
+}

@@ -1,10 +1,27 @@
-name: Must run on custom runner
+name: Test Trivy
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  init:
-    runs-on: self-hosted
+  test-trivy:
+    runs-on: ubuntu-latest
     steps:
-      - run: echo 'hello cloud gurus'
-      - run: echo $HOSTNAME
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
